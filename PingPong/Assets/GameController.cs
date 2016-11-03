@@ -1,49 +1,41 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
-{
+public class GameController : MonoBehaviour {
 
-    public GameObject ballTemplate;
+        public GameObject ballTemplate;
 
-    public Text firstPlayerScore;
-    public Text secondPlayerScore;
+        public Text firstPlayerScore;
+        public Text secondPlayerScore;
 
-    private int firstPlayerScoreCounter;
-    private int secondPlayerScoreCounter;
-
-    void Start()
-    {
-
+        private int firstPlayerScoreCounter;
+        private int secondPlayerScoreCounter;
+		private AudioSource audio;
         
-    }
-    void OnTriggerExit(Collider other)
-    {
-        GameObject gameObject =
-                other.gameObject;
+		void Start(){
+			audio = GetComponent<AudioSource> ();
+		}
 
-        if (gameObject.CompareTag("Ball"))
-        {
-            GameObject ball =
-                    gameObject;
+		void OnTriggerExit(Collider other) {
+                GameObject gameObject =
+                        other.gameObject;
 
-            if (ball.transform.position.z < transform.position.z)
-            {
-                ++firstPlayerScoreCounter;
-                firstPlayerScore.text =
-                        firstPlayerScoreCounter.ToString();
-            }
-            else
-            {
-                ++secondPlayerScoreCounter;
-                secondPlayerScore.text =
-                        secondPlayerScoreCounter.ToString();
-            }
+                if (gameObject.CompareTag ("Ball")) {
+                        GameObject ball = gameObject;
 
-            Destroy(ball);
-            Instantiate(ballTemplate);
+                        if (ball.transform.position.z < transform.position.z) {
+                                ++firstPlayerScoreCounter;
+                                firstPlayerScore.text =
+                                        firstPlayerScoreCounter.ToString();
+                        } else {
+                                ++secondPlayerScoreCounter;
+                                secondPlayerScore.text =
+                                        secondPlayerScoreCounter.ToString();
+                        }
+						audio.Play ();
+                        Destroy (ball);
+                        Instantiate(ballTemplate);
+                }
         }
-    }
 
 }
