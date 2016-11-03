@@ -1,28 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class BallController : MonoBehaviour {
+public class BallController : MonoBehaviour
+{
 
-    public float InputForceScale = 10.0f;
+    public float InputForceScale =
+            10.0f;
+    public float InitialAngle =
+            20.0f;
+
     private Rigidbody rigidBody;
 
-    // Use this for initialization
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
 
-    }
-
-    //Called for every Physics Engine Update step
-    void FixedUpdate()
-    {
-        float horizontalAxis = Input.GetAxis("Horizontal");
-        float verticalAxis = Input.GetAxis("Vertical");
-
-        Vector3 force = new Vector3(horizontalAxis, 0.0f, verticalAxis);
-        force *= InputForceScale;
-
+        Vector3 force = Quaternion.Euler(0, Random.Range(20f, 45f), 0) * Vector3.forward;
+        force = force * InputForceScale;
         rigidBody.AddForce(force);
+
+        
     }
 
 }
